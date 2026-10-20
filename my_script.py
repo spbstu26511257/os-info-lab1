@@ -34,9 +34,7 @@ import time
 SCRIPT_VERSION = "1.0"
 
 
-# ---------------------------------------------------------------------------
 # 1. Определение ОС
-# ---------------------------------------------------------------------------
 def detect_os():
     """Возвращает 'Linux', 'macOS', 'Windows' или исходное имя системы."""
     system = platform.system()
@@ -48,10 +46,7 @@ def detect_os():
         return "Windows"
     return system or "Unknown"
 
-
-# ---------------------------------------------------------------------------
 # Вспомогательные функции
-# ---------------------------------------------------------------------------
 def safe(func, default=None):
     """Выполняет func(); при любой ошибке возвращает default.
     Нужна, чтобы отсутствие одного параметра не ломало весь сбор."""
@@ -70,7 +65,7 @@ def read_text(path):
         return f.read()
 
 
-# --- macOS: sysctlbyname из libc через ctypes (не утилита sysctl) ----------
+# macOS: sysctlbyname из libc через ctypes (не утилита sysctl) 
 def _mac_libc():
     return ctypes.CDLL(ctypes.util.find_library("c"), use_errno=True)
 
@@ -107,7 +102,7 @@ def mac_boot_time():
     return float(tv.tv_sec)
 
 
-# --- Windows: WinAPI через ctypes и реестр через winreg --------------------
+#Windows: WinAPI через ctypes и реестр через winreg 
 def win_memory():
     class MEMORYSTATUSEX(ctypes.Structure):
         _fields_ = [
@@ -140,9 +135,7 @@ def win_registry_value(path, name):
         return winreg.QueryValueEx(key, name)[0]
 
 
-# ---------------------------------------------------------------------------
 # 2. Сбор параметров
-# ---------------------------------------------------------------------------
 def collect_os_info(os_family):
     info = {
         "family": os_family,
@@ -351,9 +344,7 @@ def collect_all():
     }
 
 
-# ---------------------------------------------------------------------------
 # 3. Запись в JSON
-# ---------------------------------------------------------------------------
 def save_json(data, path):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
