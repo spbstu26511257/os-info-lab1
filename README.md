@@ -91,3 +91,5 @@ python my_script.py -o result.json   # свой путь к файлу
 ## Проверено
 
 - Linux (Ubuntu 24.04, Python 3.13)
+- Windows 11 (Python 3.12)
+- macOS 15 Sequoia (Python 3.12)
